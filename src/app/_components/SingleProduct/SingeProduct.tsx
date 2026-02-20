@@ -1,4 +1,4 @@
-import React from "react";
+"use client"
 import {
   Card,
   CardContent,
@@ -12,8 +12,11 @@ import Image from "next/image";
 import { Product } from "@/types/product.type";
 import AddBtnCart from "../AddBtnCart/AddBtnCart";
 import AddBtnWishlist from "../AddBtnWishlist/AddBtnWishlist";
+import { useSession } from "next-auth/react";
 
 export default function SingleProduct({ prod }: { prod: Product }) {
+
+  const { data: session } = useSession();
   return (
     <>
       <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4" key={prod._id}>
@@ -35,7 +38,7 @@ export default function SingleProduct({ prod }: { prod: Product }) {
                 <Link href={`/products/${prod._id}`}>
                   <span>{prod.category.name}</span>
                 </Link>
-                <span><AddBtnWishlist id={prod.id} /></span>
+                {session? <span><AddBtnWishlist id={prod.id} /></span> : ""}
               </CardDescription>
             </CardHeader>
             <Link href={`/products/${prod._id}`}>
