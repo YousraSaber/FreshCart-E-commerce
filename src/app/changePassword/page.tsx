@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { getMyToken } from "@/utilities/getMyToken";
 import { changePasswordSchema, changePasswordSchemaType } from "@/schema/ChangePassword.schema";
+import { signOut } from "next-auth/react";
 
 export default function ChangePassword() {
     const router = useRouter();
@@ -30,26 +31,25 @@ export default function ChangePassword() {
 
     const { handleSubmit } = form;
 
-    async function handleLogin(values :changePasswordSchemaType) {
+    async function handleLogin(values: changePasswordSchemaType) {
 
         const myToken = await getMyToken();
         if (!myToken) throw new Error("you should logged in first!");
 
-        axios.put("https://ecommerce.routemisr.com/api/v1/users/changeMyPassword", values , {
-            headers : {
-                token : myToken
+        axios.put("https://ecommerce.routemisr.com/api/v1/users/changeMyPassword", values, {
+            headers: {
+                token: myToken
             }
         })
-            .then((res) => {
+            .then(async (res) => {
                 console.log(res)
                 if (res.data.message == "success") {
-                    console.log(res)
-                    toast.success("you Password Changed successfully", {
-                        duration: 3000,
+                    toast.success("Your password changed successfully", {
+                        duration: 7000,
                         position: "top-center",
-
                     });
-                    router.push("/");
+
+                    await signOut({ callbackUrl: "/login" });
                 }
             })
             .catch((err) => {
