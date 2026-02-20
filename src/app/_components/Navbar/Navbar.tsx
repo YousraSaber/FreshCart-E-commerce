@@ -183,9 +183,9 @@ export default function Navbar() {
             <NavbarItem>
               <Link href="/wishlist" className="font-semibold me-1.5 relative">
                 <i className="fa-solid fa-heart text-2xl text-red-600 "></i>
-                <span className="absolute top-[-15px] end-[-15px] text-white flex items-center justify-center bg-green-600 p-2 rounded-full size-5 text-xs">
+                {numberOfWishlistItems > 0 && <span className="absolute top-[-15px] end-[-15px] text-white flex items-center justify-center bg-green-600 p-2 rounded-full size-5 text-xs">
                   {numberOfWishlistItems}
-                </span>
+                </span>}
               </Link>
             </NavbarItem>
           </div>
@@ -230,8 +230,9 @@ export default function Navbar() {
         )}
         {session ? <Link href="/wishlist" className="me-1.5 flex items-center">
           Wishlist<i className="fa-solid fa-heart relative text-lg text-red-600">
-            <span className="absolute text-[8px] text-white bg-green-600 size-5 rounded-full end-[-10px] top-[-15px] flex items-center justify-center">{numberOfWishlistItems}</span>
-          </i>
+            {numberOfWishlistItems > 0 && <span className="absolute text-[8px] text-white bg-green-600 size-5 rounded-full end-[-10px] top-[-15px] flex items-center justify-center">{numberOfWishlistItems}</span>
+            }          
+            </i>
 
         </Link> : ""}
         {!session ? (

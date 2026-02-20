@@ -19,11 +19,11 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
   console.log(data);
   return (
     <>
-      <div className="container flex gap-5 w-[80%] mx-auto justify-center mt-10">
-        <div className="w-1/3 border-1.5 border-green-100 rounded-2xl">
+      <div className="container flex flex-col md:flex-row gap-5 w-[80%] mx-auto justify-center mt-10">
+        <div className="w-full md:w-1/3 border-1.5 border-green-100 rounded-2xl">
           <Image width={200} height={200} src={data.imageCover} className="w-full rounded-2xl shadow-2xl" alt="product image" />
         </div>
-        <div className="w-2/3">
+        <div className="w-full md:w-2/3">
           <div className="flex flex-col gap-3 mt-4 ">
             <div className="flex justify-between items-center">
               <h2 className=" font-bold text-3xl">{data.title}</h2>
@@ -44,7 +44,7 @@ export default async function ProductDetails({ params }: { params: Promise<{ id:
       </div>
 
       <div className="container mt-20 w-[90%] mx-auto">
-        <h2 className="text-xl md:text-3xl font-bold mt-7 mb-2"><span className="text-green-600">Related</span> Products :</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mt-7 mb-2"><span className="text-green-600">Related</span> Products :</h2>
         <div className="flex flex-wrap">
           {res.data.map((prod: Product) => {
             return (
