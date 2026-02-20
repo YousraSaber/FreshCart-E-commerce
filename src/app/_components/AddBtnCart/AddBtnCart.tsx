@@ -9,22 +9,17 @@ export default function AddBtn({ id }: { id: string }) {
     const { numberOfItems, setNumberOfItems } = useContext(CartContext)!;
 
     async function addProductToCart(id: string) {
-        const res = await addToCart(id);
-        console.log(res);
-
+        try {
+            const res = await addToCart(id);
             if (res.status == "success") {
-                toast.success(res.message, {
-                    duration: 2000,
-                    position: "top-center",
-                });
-                setNumberOfItems(numberOfItems + 1);
+                toast.success(res.message, { duration: 2000, position: "top-center" });
+                setNumberOfItems(prev => prev + 1);
             } else {
-                toast.success(res.message, {
-                    duration: 2000,
-                    position: "top-center",
-                });
+                toast.error(res.message, { duration: 2000, position: "top-center" });
             }
-        
+        } catch (err) {
+            toast.error("Something went wrong!", { duration: 2000, position: "top-center" });
+        }
     }
     return (
         <>
