@@ -34,6 +34,11 @@ export default function AddBtnWishlist({ id }: { id: string }) {
                 toast.success("Added to wishlist ❤️" , {
                     position : "top-center",
                 });
+            }else{
+                toast.success(res.message, {
+                    duration: 2000,
+                    position: "top-center",
+                });
             }
         } else {
             const res = await removeWishlistItem(id);
