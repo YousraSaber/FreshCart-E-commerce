@@ -91,9 +91,9 @@ export default function AllOrdersPage() {
 
             <div className="flex justify-between items-center border-t border-gray-200 pt-3">
               <p className="font-semibold text-xl"><span className="text-green-600 font-semibold ">Total:</span> {order.totalOrderPrice} EGP</p>
-              <p className="text-gray-500">
+              {/* <p className="text-gray-500">
                 {new Date(order.createdAt).toLocaleString("en-EG", { dateStyle: "short", timeStyle: "short" })}
-              </p>
+              </p> */}
             </div>
 
             <div className="mt-3 text-gray-700">
