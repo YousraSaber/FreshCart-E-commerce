@@ -4,7 +4,13 @@ import { getMyToken } from "@/utilities/getMyToken";
 export async function addToCart(id: string) {
     try {
         const myToken = await getMyToken();
-        if (!myToken) throw new Error("you should logged in first!");
+
+        if (!myToken) {
+            return {
+                status: "error",
+                message: "You should log in first!",
+            };
+        }
 
         const res = await fetch("https://ecommerce.routemisr.com/api/v2/cart", {
             method: "POST",
@@ -16,9 +22,14 @@ export async function addToCart(id: string) {
                 productId: id,
             }),
         });
+
         const payload = await res.json();
         return payload;
+
     } catch (error) {
-        return error;
+        return {
+            status: "error",
+            message: "Something went wrong!",
+        };
     }
 }
