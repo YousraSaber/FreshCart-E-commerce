@@ -46,7 +46,7 @@ export default function Wishlist() {
             setWishlistProducts((prev) => prev.filter((p) => p.id !== id));
             setNumberOfWishlistItems((prev) => prev - 1);
             setDisableFlag(false);
-            
+
         } else {
             toast.error("Product cannot be removed now.", {
                 duration: 2000,
@@ -60,8 +60,10 @@ export default function Wishlist() {
 
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        getUserWishlistProducts();
+        function flag() {
+            getUserWishlistProducts();
+        }
+        flag()
     }, []);
 
     return (

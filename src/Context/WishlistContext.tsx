@@ -15,7 +15,7 @@ type WishlistContextType = {
   numberOfWishlistItems: number;
   setNumberOfWishlistItems: React.Dispatch<React.SetStateAction<number>>;
 
-   refreshWishlist: () => Promise<void>;
+  refreshWishlist: () => Promise<void>;
 };
 
 
@@ -37,7 +37,7 @@ type WishlistContextProviderProps = {
 export function WishlistContextProvider({
   children,
 }: WishlistContextProviderProps) {
-  
+
   const [numberOfWishlistItems, setNumberOfWishlistItems] = useState<number>(0);
   const [wishlistProducts, setWishlistProducts] = useState<Wishlist2[]>([]);
 
@@ -52,20 +52,25 @@ export function WishlistContextProvider({
     } else {
       setNumberOfWishlistItems(0);
       setWishlistProducts([]);
-      
+
 
     }
   }
 
   useEffect(() => {
     if (status === "authenticated") {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      getLoggedUserWishlist();
+      function flag() {
+        getLoggedUserWishlist();
+      }
+      flag()
     }
 
     if (status === "unauthenticated") {
-      setNumberOfWishlistItems(0);
-      setWishlistProducts([]);
+      function flag() {
+        setNumberOfWishlistItems(0);
+        setWishlistProducts([]);
+      }
+      flag()
     }
   }, [status]);
 
