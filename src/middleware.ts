@@ -1,0 +1,27 @@
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request });
+  if (token) {
+    if (
+      request.nextUrl.pathname == "/login" ||
+      request.nextUrl.pathname == "/register"
+    ) {
+      return NextResponse.redirect(new URL("/", request.url));
+    } else {
+      return NextResponse.next(); // go to login , register page
+    }
+  } else {
+    if (request.nextUrl.pathname == "/cart" || request.nextUrl.pathname.includes("/products/") || request.nextUrl.pathname == "/wishlist" ||
+      request.nextUrl.pathname == "/changePassword" || request.nextUrl.pathname == "/allorders") {
+      return NextResponse.redirect(new URL("/login", request.url));
+    } else {
+      return NextResponse.next(); // go to cart page
+    }
+  }
+}
+
+export const config = {
+  matcher: ["/cart", "/login", "/register", "/changePassword" , "/products/:path*" ,"/wishlist" , "/allorders"],
+};
